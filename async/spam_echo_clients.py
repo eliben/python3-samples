@@ -19,6 +19,12 @@ for sock in sockets:
     time.sleep(0.1)
 
 for sock in sockets:
+    data = sock.recv(1024)
+    if data != msg:
+        print('Error! No reply to', sock.getsockname())
+    time.sleep(0.1)
+
+for sock in sockets:
     sock.close()
     time.sleep(0.1)
 
