@@ -17,6 +17,7 @@ for line in message:
     print('Client received:', repr(data))
 
 time.sleep(2)
-sock.close()                             # close socket to send eof to server
+sock.close()
+
 
 
