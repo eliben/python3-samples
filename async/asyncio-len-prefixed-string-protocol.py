@@ -1,8 +1,19 @@
+# Mimics the IntNStringReceiverProtocol protocol from Twisted.
+# Encapsulates length-prefixed strings of binary data.
 import asyncio
 import struct
 
 
 class IntNStringReceiverProtocol(asyncio.Protocol):
+    """Protocol for exchanging length-prefixed data packets.
+
+    This class is meant to be subclassed. The subclass should define
+    prefix_format to be a format usable by the 'struct' module to encode and
+    decode packet lengths.
+
+    string_received will be called on the subclass when a whole string is
+    received. send_string can be used to wrap a string for transmission.
+    """
     _buf = b''
 
     def connection_made(self, transport):
@@ -39,6 +50,7 @@ class IntNStringReceiverProtocol(asyncio.Protocol):
         self.transport.write(struct.pack(self.prefix_format, len(s)) + s)
 
 
+# This is a sample client
 class MyStringReceiver(IntNStringReceiverProtocol):
     prefix_format = "<L"
 
