@@ -12,6 +12,9 @@ inputpath = Path(sys.argv[1])
 stem = inputpath.stem
 
 # Replace <...>/foo.<suffix> with <...>/foo/foo.x
-newpath = Path(inputpath.parent, stem, stem + '.x')
 
-print(newpath)
+# ... using the Path constructor
+print(Path(inputpath.parent, stem, stem + '.x'))
+
+# ... using / operators on Path objects and strings
+print(inputpath.parent / stem / (stem + '.x'))
